@@ -40,53 +40,54 @@ app.post('/create', upload.single('img'), post.create, (req, res) => {
 
 app.post("/posts", post.posts)
 
-// // ! cron
+// ! cron
 
-// import fs from 'fs';
-// import path from 'path';
-// import cron from 'node-cron';
+import fs from 'fs';
+import path from 'path';
+import cron from 'node-cron';
 
-// // Function to clear the "upload/folder1" directory of files older than 15 seconds
-// function clearFolder() {
-// 	const folderPath = 'uploads';
+// Function to clear the "upload/folder1" directory of files older than 15 seconds
+function clearFolder() {
+	console.log("STARTED SEARCH", Date())
+	const folderPath = 'uploads';
 
-// 	// Calculate the timestamp for 15 seconds ago
-// 	const fifteenSecondsAgo = new Date();
-// 	fifteenSecondsAgo.setSeconds(fifteenSecondsAgo.getSeconds() - 15);
+	// Calculate the timestamp for 15 seconds ago
+	const fifteenSecondsAgo = new Date();
+	fifteenSecondsAgo.setSeconds(fifteenSecondsAgo.getSeconds() - 15);
 
-// 	// Read the contents of the folder
-// 	fs.promises.readdir(folderPath)
-// 		.then((files) => {
-// 			// Iterate through files in the folder
-// 			files.forEach((file) => {
-// 				const filePath = path.join(folderPath, file);
+	// Read the contents of the folder
+	fs.promises.readdir(folderPath)
+		.then((files) => {
+			// Iterate through files in the folder
+			files.forEach((file) => {
+				const filePath = path.join(folderPath, file);
 
-// 				// Get the file's stats (including modification time)
-// 				fs.promises.stat(filePath)
-// 					.then((stats) => {
-// 						// Check if the file is older than 15 seconds
-// 						if (stats.mtime < fifteenSecondsAgo) {
-// 							// Delete the file
-// 							fs.promises.unlink(filePath)
-// 								.then(() => {
-// 									console.log(`Deleted file ${filePath}`);
-// 								})
-// 								.catch((err) => {
-// 									console.error(`Error deleting file ${filePath}:`, err);
-// 								});
-// 						}
-// 					})
-// 					.catch((err) => {
-// 						console.error(`Error getting file stats for ${filePath}:`, err);
-// 					});
-// 			});
-// 		})
-// 		.catch((err) => {
-// 			console.error('Error reading folder:', err);
-// 		});
-// }
+				// Get the file's stats (including modification time)
+				fs.promises.stat(filePath)
+					.then((stats) => {
+						// Check if the file is older than 15 seconds
+						if (stats.mtime < fifteenSecondsAgo) {
+							// Delete the file
+							fs.promises.unlink(filePath)
+								.then(() => {
+									console.log(`Deleted file ${filePath}`);
+								})
+								.catch((err) => {
+									console.error(`Error deleting file ${filePath}:`, err);
+								});
+						}
+					})
+					.catch((err) => {
+						console.error(`Error getting file stats for ${filePath}:`, err);
+					});
+			});
+		})
+		.catch((err) => {
+			console.error('Error reading folder:', err);
+		});
+}
 
-// // Schedule the clearFolder function to run every second (*/15 * * * * *)
-// cron.schedule('*/55 * * * * *', () => {
-// 	clearFolder(); // Call your script function here
-// });
+// Schedule the clearFolder function to run every second (*/15 * * * * *)
+cron.schedule('*/5 * * * * *', () => {
+	clearFolder(); // Call your script function here
+});
