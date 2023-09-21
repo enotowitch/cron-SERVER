@@ -1,7 +1,7 @@
 import post from "../models/post.js"
 
 export const create = async (req, res) => {
-	const doc = await new post({ img: `${process.env.SERVER_URL}/uploads/${req.file.originalname}` })
+	const doc = await new post({ img: `https://cron-gybv.onrender.com/uploads/${req.file.originalname}` })
 	await doc.save()
 	res.json()
 }
