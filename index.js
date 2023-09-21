@@ -87,7 +87,7 @@ function clearFolder() {
 		});
 }
 
-// Schedule the clearFolder function to run every second (*/15 * * * * *)
-cron.schedule('*/5 * * * * *', () => {
-	clearFolder(); // Call your script function here
-});
+// // Schedule the clearFolder function to run every second (*/15 * * * * *)
+// cron.schedule('*/5 * * * * *', () => {
+// 	clearFolder(); // Call your script function here
+// });
