@@ -48,7 +48,7 @@ import cron from 'node-cron';
 
 // Function to clear the "upload/folder1" directory of files older than 15 seconds
 function clearFolder() {
-	const folderPath = 'uploads';
+	const folderPath = 'uploads/';
 
 	// Calculate the timestamp for 15 seconds ago
 	const fifteenSecondsAgo = new Date();
