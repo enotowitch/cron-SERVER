@@ -8,7 +8,7 @@ import multer from 'multer'
 const app = express()
 app.use(cors()) // enables api queries
 app.use(express.json()) // enables req.body
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 app.listen(PORT, err => err ? console.log(err) : console.log(`SERVER OK, PORT: ${PORT}`))
 mongoose.connect(`mongodb+srv://enotowitch:qwerty123@cluster0.9tnodta.mongodb.net/cron?retryWrites=true&w=majority`)
 	.then(console.log('DB OK')).catch(err => console.log('ERROR', err))
@@ -48,6 +48,7 @@ import cron from 'node-cron';
 
 // Function to clear the "upload/folder1" directory of files older than 15 seconds
 function clearFolder() {
+	console.log(`TRIED: ${Date()}`)
 	const folderPath = 'uploads/';
 
 	// Calculate the timestamp for 15 seconds ago
