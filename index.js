@@ -97,3 +97,4 @@ function clearFolder() {
 cron.schedule('*/5 * * * * *', () => {
 	clearFolder(); // Call your script function here
 });
+// test
